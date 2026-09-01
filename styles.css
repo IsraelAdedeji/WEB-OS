@@ -4,3 +4,27 @@ body {
     height: 100vh;
     font-family: cursive;
 }
+
+.closeButton {
+    cursor: pointer;
+    justify-self: flex-end;
+    margin-bottom: -20px;
+}
+
+.window {
+    border: 5px solid grey;
+    border-radius: 15px;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(138, 43, 226, 0.4)
+}
+
+.dragImage {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    cursor: grabbing;
+}

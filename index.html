@@ -9,34 +9,33 @@
 </head>
 
 <body>
-    <script>
-        setInterval(function () {
-            document.querySelector("#timeElement").innerHTML = new Date().toLocaleString();
-        }, 1000);
-    </script>
-
-    <div
-        style="position: absolute; width: 100%; display: flex; backdrop-filter: blur(10px); background-color: rgba(0, 0, 0, 0.125); color: #fff; justify-content: space-between; gap: 32px;">
-        <p style="margin-left: 16px; font-weight: 700; font-size: 20px;">
-            SpaceOS
-        </p>
-        <p
-            style="margin-left: 70px; background-color: rgba(256, 256, 256, 0.25); padding: 4px 12px; border-radius: 16px; color: aquamarine; text-align: center; font-size: 20px;"> Explore the vast regions of outer space
-        </p>
-        <p id="timeElement"
-            style="color: white; padding: 4px 12px; border-radius: 16px;">
-            Time
-        </p>
-    </div>
-    <div
-        style="border: 5px solid grey; border-radius: 15px; padding: 10px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color:rgb(138, 43, 226, 0.4);">
-        <h1 style="color: white; text-align: center;">Space OS</h1>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiu8n1f5DFu9PPgqTZf72IgjH-w0YxWioKswOnlNnEFg&s=10"
-            alt="galaxy" width="400px" height="300px">
-    </div>
-
     <div>
-
+        <div
+            style="position: absolute; width: 100%; display: flex; backdrop-filter: blur(10px); background-color: rgba(0, 0, 0, 0.125); color: #fff; justify-content: space-between; gap: 32px;">
+            <p style="margin-left: 16px; font-weight: 700; font-size: 20px; cursor:pointer" id="welcomeopen">
+                <u>SpaceOS</u>
+            </p>
+            <p
+                style="margin-left: 70px; background-color: rgba(256, 256, 256, 0.25); padding: 4px 12px; border-radius: 16px; color: aquamarine; text-align: center; font-size: 20px;">
+                Explore the vast regions of outer space
+            </p>
+            <p id="timeElement" style="color: white; padding: 4px 12px; border-radius: 16px;">
+                Time
+            </p>
+        </div>
+        <div id="welcome" class="window">
+            <p class="closeButton" id="welcomeclose">🚀 Close</p>
+            <p id="welcomeheader" class="dragImage">
+                <img src="images/blklogo-removebg-preview.png" alt="" height="40px">
+            </p>
+            <h1 style="color: white; text-align: center; margin-top: -30px;">Space OS</h1>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiu8n1f5DFu9PPgqTZf72IgjH-w0YxWioKswOnlNnEFg&s=10"
+                alt="galaxy" width="400px" height="300px">
+        </div>
     </div>
+
+    <script src="script.js"></script>
+
+</body>
 
 </html>
