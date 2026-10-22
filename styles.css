@@ -8,7 +8,7 @@ body {
 .closeButton {
     cursor: pointer;
     justify-self: flex-end;
-    margin-bottom: -20px;
+    margin-bottom: 10px;
 }
 
 .window {
@@ -19,7 +19,13 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(138, 43, 226, 0.4)
+    background-color: rgb(138, 43, 226, 0.4);
+    height: 420px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-direction: column;
 }
 
 .dragImage {
@@ -28,3 +34,9 @@ body {
     display: inline-block;
     cursor: grabbing;
 }
+
+.headerText {
+    color: white;
+    text-align: center;
+    margin-top: -10px;
+} 

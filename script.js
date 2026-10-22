@@ -64,12 +64,12 @@ function closeWindow(element) {
 }
 
 function openWindow(element) {
-    element.style.display = "block"
+    element.style.display = "flex"
 }
 
-var welcomeScreenClose = document.querySelector("#welcomeclose")
+var welcomeScreenClose = document.querySelector("#welcomeClose")
 
-var welcomeScreenOpen = document.querySelector("#welcomeopen")
+var welcomeScreenOpen = document.querySelector("#welcomeOpen")
 
 welcomeScreenClose.addEventListener("click", function () {
     closeWindow(welcomeScreen);
@@ -78,3 +78,128 @@ welcomeScreenClose.addEventListener("click", function () {
 welcomeScreenOpen.addEventListener("click", function () {
     openWindow(welcomeScreen);
 });
+
+var selectedIcon = undefined
+
+function selectIcon(element) {
+    element.classList.add("selected");
+    selectedIcon = element
+}
+
+function deselectIcon(element) {
+    element.classList.remove("selected");
+    selectedIcon = undefined
+}
+
+function handleIconTap(element) {
+    if (element.classList.contains("selected")) {
+        deselectIcon(element)
+        openWindow(window)
+    } else {
+        selectIcon(element)
+    }
+}
+
+dragElement(document.querySelector("#goldenRecord"))
+
+var goldenRecord = document.querySelector("#goldenRecord")
+
+var goldenRecordClose = document.querySelector("#goldenRecordClose")
+
+var goldenRecordOpen = document.querySelector("#goldenRecordOpen")
+
+goldenRecordOpen.addEventListener("click", () => openWindow(goldenRecord));
+
+goldenRecordClose.addEventListener("click", () => closeWindow(goldenRecord));
+
+var biggestIndex = 1;
+
+function addWindowTapHandling(element) {
+    element.addEventListener("mousedown", () =>
+        handleWindowTap(element)
+    )
+}
+
+// function handleWindowTap(element) {
+//     biggestIndex++;  // Increment biggestIndex by 1
+//     element.style.zIndex = biggestIndex;
+// }
+
+// function openWindow(element) {
+//     element.style.display = "flex";
+//     biggestIndex++;  // Increment biggestIndex by 1
+//     element.style.zIndex = biggestIndex;
+// }
+
+addWindowTapHandling(welcomeScreen)
+addWindowTapHandling(goldenRecord)
+
+var topBar = document.querySelector("#top")
+
+function openWindow(element) {
+    element.style.display = "flex";
+    biggestIndex++;  // Increment biggestIndex by 1
+    element.style.zIndex = biggestIndex;
+    topBar.style.zIndex = biggestIndex + 1;
+}
+
+function handleWindowTap(element) {
+    biggestIndex++;  // Increment biggestIndex by 1
+    element.style.zIndex = biggestIndex;
+    topBar.style.zIndex = biggestIndex + 1;
+    deselectIcon(selectedIcon)
+}
+
+function initializeWindow(elementName) {
+    var screen = document.querySelector("#" + elementName)
+    addWindowTapHandling(screen)
+    makeClosable(elementName)
+    dragElement(screen)
+}
+
+initializeWindow("goldenRecord")
+
+var content = [
+    {
+        title: "Welcome",
+        date: "06/28/2023",
+        content: `<p contenteditable="True">
+        <span contenteditable="true">Welcome to <strong>Hacker Notes</strong>
+            </br>
+            </br>
+            <img src=""
+            style="width: 96px; border-radius: 16px" />
+            </br>
+            </br>
+
+            This is a place where I store my thoughts as they come to mind. What exactly will you find when browsing
+            through
+            these notes? As I <del>once said</del> <ins>always say</ins>
+        </span>
+        <blockquote
+        style="background-color: #F9F9F9; margin-top: 16x; margin-bottom: 16px; margin-left: 0px; margin-right: 0px; padding: 16px; border-radius: 16px;"
+        contenteditable="true">
+        <i>Time Will Tell
+            </br>
+            ~ Thomas
+        </i>
+        </blockquote>
+        <span contenteditable="true">
+        I suppose you may see a bit of content about technology. Perhaps some insights regarding recent projects.
+        Maybe
+        even some thoughts regarding nature & tea? Go and find out!
+        </span>
+        </p>`
+    }
+]
+
+function setNotesContent(index) {
+
+    var notesContent = document.querySelector("#notesContent");
+
+    var selectedNote = content[index];
+
+    notesContent.innerHTML = selectedNote.content;
+}
+
+setNotesContent(0)
