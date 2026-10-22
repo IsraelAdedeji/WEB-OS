@@ -50,7 +50,6 @@ function dragElement(element) {
         element.style.left = (element.offsetLeft - currentX) + "px";
     }
 
-    // Step 12: Define the `stopDragging` function to stop tracking mouse movement by removing the event listeners.
     function stopDragging() {
         document.onmouseup = null;
         document.onmousemove = null;
@@ -87,8 +86,10 @@ function selectIcon(element) {
 }
 
 function deselectIcon(element) {
-    element.classList.remove("selected");
-    selectedIcon = undefined
+    if (element) {
+        element.classList.remove("selected");
+        selectedIcon = undefined
+    }
 }
 
 function handleIconTap(element) {
@@ -151,10 +152,21 @@ function handleWindowTap(element) {
 }
 
 function initializeWindow(elementName) {
-    var screen = document.querySelector("#" + elementName)
-    addWindowTapHandling(screen)
-    makeClosable(elementName)
+    var screen = document.querySelector("#" + elementName);
+    addWindowTapHandling(screen);
+    // makeClosable(elementName)
     dragElement(screen)
+
+    if (elementName !== "welcome") {
+        initializeIcon(elementName);
+    }
+}
+
+function initializeIcon(elementName) {
+    var icon = document.querySelector("#" + elementName + "Open");
+    var screen = document.querySelector("#" + elementName);
+
+    icon.addEventListener("click", () => handleIconTap(icon, screen));
 }
 
 initializeWindow("goldenRecord")
@@ -190,6 +202,20 @@ var content = [
         even some thoughts regarding nature & tea? Go and find out!
         </span>
         </p>`
+    },
+
+    {
+        title: "Project Ideas",
+        date: "09/18/2026",
+        content: `
+            <h2>My Next Big Project</h2>
+            <p contenteditable="true">I want to build a custom mechanical keyboard.</p>
+            <ul>
+                <li>Select parts</li>
+                <li>Print the case</li>
+                <li>Build the firmware</li>
+            </ul>
+        `
     }
 ]
 
@@ -203,3 +229,31 @@ function setNotesContent(index) {
 }
 
 setNotesContent(0)
+
+var sidebar = document.querySelector("#sidebar");
+
+function addToSideBar(index) {
+    var note = content[index];
+    var newDiv = document.createElement("div");
+
+    newDiv.style.padding = "10px";
+    newDiv.style.marginBottom = "5px";
+    newDiv.style.borderRadius = "10px";
+    newDiv.style.cursor = "pointer";
+    newDiv.style.backgroundColor = "#e0e0e0";
+
+    newDiv.innerHTML = `
+    <p style= "margin: 0px; font-weight: bold;">${note.title}</p>
+    <p style= "margin: 0px; font-size: 12px;">${note.date}</p>
+    `;
+
+    newDiv.addEventListener("click", function () {
+        setNotesContent(index);
+    });
+
+    sidebar.appendChild(newDiv);
+}
+
+for (let i = 0; i < content.length; i++) {
+    addToSideBar(i);
+}
