@@ -92,12 +92,20 @@ function deselectIcon(element) {
     }
 }
 
-function handleIconTap(element) {
-    if (element.classList.contains("selected")) {
-        deselectIcon(element)
-        openWindow(window)
+function handleIconTap(iconElement, windowElement) {
+    // if (element.classList.contains("selected")) {
+    //     deselectIcon(element)
+    //     openWindow(window)
+    // } else {
+    //     selectIcon(element)
+    // }
+
+    if (iconElement.classList.contains("selected")) {
+        deselectIcon(iconElement);
     } else {
-        selectIcon(element)
+        deselectIcon(selectedIcon);
+        selectIcon(iconElement);
+        openWindow(windowElement);
     }
 }
 
@@ -153,55 +161,79 @@ function handleWindowTap(element) {
 
 function initializeWindow(elementName) {
     var screen = document.querySelector("#" + elementName);
-    addWindowTapHandling(screen);
-    // makeClosable(elementName)
-    dragElement(screen)
+    var closeBtn = document.querySelector("#" + elementName + "Close");
+
+    if (screen) {
+        addWindowTapHandling(screen);
+        dragElement(screen);
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => closeWindow(screen));
+    }
 
     if (elementName !== "welcome") {
-        initializeIcon(elementName);
+        var icon = document.querySelector("#" + elementName + "Open");
+        if (icon) {
+            icon.addEventListener("click", () => handleIconTap(icon, screen));
+        }
     }
 }
 
-function initializeIcon(elementName) {
-    var icon = document.querySelector("#" + elementName + "Open");
-    var screen = document.querySelector("#" + elementName);
+// function initializeIcon(elementName) {
+//     var icon = document.querySelector("#" + elementName + "Open");
+//     var screen = document.querySelector("#" + elementName);
 
-    icon.addEventListener("click", () => handleIconTap(icon, screen));
-}
+//     icon.addEventListener("click", () => handleIconTap(icon, screen));
+// }
 
 initializeWindow("goldenRecord")
 
 var content = [
     {
-        title: "Welcome",
-        date: "06/28/2023",
-        content: `<p contenteditable="True">
-        <span contenteditable="true">Welcome to <strong>Hacker Notes</strong>
-            </br>
-            </br>
-            <img src=""
-            style="width: 96px; border-radius: 16px" />
-            </br>
-            </br>
-
-            This is a place where I store my thoughts as they come to mind. What exactly will you find when browsing
-            through
-            these notes? As I <del>once said</del> <ins>always say</ins>
-        </span>
-        <blockquote
-        style="background-color: #F9F9F9; margin-top: 16x; margin-bottom: 16px; margin-left: 0px; margin-right: 0px; padding: 16px; border-radius: 16px;"
-        contenteditable="true">
-        <i>Time Will Tell
-            </br>
-            ~ Thomas
-        </i>
-        </blockquote>
-        <span contenteditable="true">
-        I suppose you may see a bit of content about technology. Perhaps some insights regarding recent projects.
-        Maybe
-        even some thoughts regarding nature & tea? Go and find out!
-        </span>
-        </p>`
+        title: "System Welcome",
+        date: "10/24/2026",
+        content: `
+            <div style="text-align: center;">
+                <h2 style="color: #8a2be2; margin-bottom: 5px;">Welcome to SpaceOS</h2>
+                <p style="font-size: 12px; color: #666; margin-top: 0;">Version 1.0</p>
+            </div>
+            <p contenteditable="true">
+                <span contenteditable="true">Congratulations, Captain. You have successfully booted up <strong>SpaceOS</strong>. 
+                <br><br>
+                This terminal is your personal database for deep-space exploration. You can click into any text block and <ins>type directly</ins> to record your findings.</span>
+            </p>
+            <blockquote style="background-color: #F9F9F9; margin-top: 16px; margin-bottom: 16px; margin-left: 0px; margin-right: 0px; padding: 16px; border-radius: 16px; border-left: 4px solid #8a2be2;" contenteditable="true">
+                <i>"The universe is under no obligation to make sense to you."<br>~ Neil deGrasse Tyson</i>
+            </blockquote>
+            <span contenteditable="true">
+                Use the sidebar on the left to navigate your records. Check out the <strong>Captain's Log</strong> to see a sample entry.
+            </span>
+        `
+    },
+    
+    {
+        title: "Captain's Log",
+        date: "10/24/2026",
+        content: `
+            <h2 style="color: #8a2be2; margin-bottom: 5px;">Stardate: 2026.10.24</h2>
+            <p contenteditable="true">
+                <span contenteditable="true">Today we successfully deployed the new navigation array. The system is running smoothly, and we are currently orbiting the <strong>Golden Record</strong> nebula.</span>
+            </p>
+            <img src="images/imgi_134_default.webp" 
+                style="width: 100%; border-radius: 12px; margin: 10px 0;">
+            <p contenteditable="true">
+                <span contenteditable="true">We captured a visual of the Pillars of Creation. I have logged the following tasks for tomorrow:</span>
+            </p>
+            <ul contenteditable="true">
+                <li>Recalibrate the solar sensors</li>
+                <li>Check the oxygen scrubbers</li>
+                <li>Explore the outer rim</li>
+            </ul>
+            <blockquote style="background-color: #F9F9F9; margin-top: 16px; margin-bottom: 16px; padding: 16px; border-radius: 16px;" contenteditable="true">
+                <i>End of Record.</i>
+            </blockquote>
+        `
     },
 
     {
@@ -257,3 +289,125 @@ function addToSideBar(index) {
 for (let i = 0; i < content.length; i++) {
     addToSideBar(i);
 }
+
+initializeWindow("solar");
+
+var planets = [
+    {
+        name: "Mercury",
+        type: "Terrestrial",
+        distance: "57.9 million km",
+        diameter: "4,879 km",
+        fact: "Mercury is the smallest planet and the closest to the Sun. It has a heavily cratered surface.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg"
+    },
+    {
+        name: "Venus",
+        type: "Terrestrial",
+        distance: "108.2 million km",
+        diameter: "12,104 km",
+        fact: "Venus is the hottest planet in our solar system with a surface temperature of over 450°C.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/8/85/Venus_globe.jpg"
+    },
+    {
+        name: "Earth",
+        type: "Terrestrial",
+        distance: "149.6 million km",
+        diameter: "12,742 km",
+        fact: "Earth is the only planet known to support life, with liquid water covering 71% of its surface.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg"
+    },
+    {
+        name: "Mars",
+        type: "Terrestrial",
+        distance: "227.9 million km",
+        diameter: "6,779 km",
+        fact: "Mars is known as the Red Planet because iron minerals in the soil oxidize (rust).",
+        image: "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg"
+    },
+    {
+        name: "Jupiter",
+        type: "Gas Giant",
+        distance: "778.5 million km",
+        diameter: "139,820 km",
+        fact: "Jupiter is the largest planet. Its Great Red Spot is a storm larger than Earth that has raged for centuries.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg"
+    },
+    {
+        name: "Saturn",
+        type: "Gas Giant",
+        distance: "1.4 billion km",
+        diameter: "116,460 km",
+        fact: "Saturn's stunning rings are made mostly of ice chunks. It is so light it could float in water!",
+        image: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg"
+    },
+    {
+        name: "Uranus",
+        type: "Ice Giant",
+        distance: "2.9 billion km",
+        diameter: "50,724 km",
+        fact: "Uranus rotates on its side! It has the coldest atmosphere of any planet in the solar system.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg"
+    },
+    {
+        name: "Neptune",
+        type: "Ice Giant",
+        distance: "4.5 billion km",
+        diameter: "49,244 km",
+        fact: "Neptune is the farthest planet from the Sun and has the strongest winds in the solar system.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Neptune_-_Voyager_2_%2829347980845%29_flatten_crop.jpg"
+    },
+    {
+        name: "Pluto",
+        type: "Dwarf Planet",
+        distance: "5.9 billion km",
+        diameter: "2,376 km",
+        fact: "Pluto was reclassified as a dwarf planet in 2006. It has a heart-shaped glacier on its surface!",
+        image: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Pluto_in_True_Color_-_High-Res.jpg"
+    }
+];
+
+function showPlanet(index) {
+    var planet = planets[index];
+    var contentArea = document.querySelector("#planetContent");
+
+    contentArea.innerHTML = `
+        <h2 style="margin-top: 0; color: #8a2be2; text-align: center;">${planet.name}</h2>
+        <img src="${planet.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        
+        <div style="background: #f4f4f4; padding: 10px; border-radius: 8px; font-size: 14px; margin-bottom: 10px;">
+            <p style="margin: 4px 0;"><strong>Type:</strong> ${planet.type}</p>
+            <p style="margin: 4px 0;"><strong>Distance:</strong> ${planet.distance}</p>
+            <p style="margin: 4px 0;"><strong>Diameter:</strong> ${planet.diameter}</p>
+        </div>
+        
+        <p style="font-size: 14px; line-height: 1.4;"><strong>Fun Fact:</strong><br>${planet.fact}</p>
+    `;
+}
+
+function buildPlanetSidebar() {
+    var sidebar = document.querySelector("#planetSidebar");
+
+    for (let i = 0; i < planets.length; i++) {
+        var btn = document.createElement("div");
+        btn.style.padding = "10px";
+        btn.style.marginBottom = "5px";
+        btn.style.borderRadius = "10px";
+        btn.style.cursor = "pointer";
+        btn.style.backgroundColor = "#e0e0e0";
+        btn.style.transition = "0.2s";
+        btn.innerHTML = `<p style= "margin: 0; font-weight: bold;">${planets[i].name}</p>`;
+
+        btn.onmouseover = () => btn.style.backgroundColor = "#c0c0c0";
+        btn.onmouseout = () => btn.style.backgroundColor = "#e0e0e0";
+
+        btn.addEventListener("click", function () {
+            showPlanet(i);
+        });
+
+        sidebar.appendChild(btn);
+    }
+}
+
+buildPlanetSidebar();
+showPlanet(0);
