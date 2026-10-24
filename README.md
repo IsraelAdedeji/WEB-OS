@@ -8,7 +8,7 @@ it features;
 - App2: Planet Index serves as an information source for the 9 planets in the solar system
 
 ## How to Run
-Try it out here :
+Try it out here : https://israeladedeji.github.io/WEB-OS/
 or
 - clone this repo, and open the index.html file in your browser
 
