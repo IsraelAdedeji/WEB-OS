@@ -411,3 +411,31 @@ function buildPlanetSidebar() {
 
 buildPlanetSidebar();
 showPlanet(0);
+
+initializeWindow("calc")
+
+function calcInput(val) {
+    document.querySelector("#calcScreen").value += val;
+}
+
+function calcClear() {
+    document.querySelector("#calcScreen").value = "";
+}
+
+function calcCalculate() {
+    var screen = document.querySelector("#calcScreen");
+    try {
+        screen.value = eval(screen.value);
+    } catch (e) {
+        screen.value = "Error";
+    }
+}
+
+initializeWindow("browser");
+
+function launchSearch() {
+    var search = document.querySelector("#searchInput").value;
+    if (search) {
+        window.open("https://www.google.com/search?q=" + encodeURIComponent(search), "_blank");
+    }
+}
